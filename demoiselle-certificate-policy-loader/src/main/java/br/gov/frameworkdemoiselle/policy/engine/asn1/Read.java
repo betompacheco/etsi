@@ -4,6 +4,8 @@ import br.gov.frameworkdemoiselle.policy.engine.asn1.etsi.SignaturePolicy;
 import br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.LPA;
 import br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.Time;
 import br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.v2.PolicyInfo;
+import br.gov.frameworkdemoiselle.policy.engine.factory.PolicyFactory;
+import br.gov.frameworkdemoiselle.policy.engine.factory.PolicyFactory.Policy;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -120,30 +122,11 @@ public class Read {
     }
 
     public static void main(String[] args) {
+
+        PolicyFactory pf = PolicyFactory.getInstance();
+        System.out.println(pf.loadPolicy(Policy.AD_RB_CADES_1_1));
+
         String[] signaturePolicies = new String[]{"/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RB_v2_1.der"};
-//		signaturePolicies = new String[] {
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RA.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RA_v1_1.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RA_v1_2.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RA_v2_0.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RA_v2_1.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RA_v2_2.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RB.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RB_v1_1.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RB_v2_0.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RB_v2_1.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RC.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RC_v1_1.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RC_v2_0.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RC_v2_1.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RT.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RT_v1_1.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RT_v2_0.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RT_v2_1.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RV.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RV_v1_1.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RV_v2_0.der",
-//		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RV_v2_1.der"};
 
         for (String file : signaturePolicies) {
             Read.printSignaturePolicyFromFile(new File(file));
