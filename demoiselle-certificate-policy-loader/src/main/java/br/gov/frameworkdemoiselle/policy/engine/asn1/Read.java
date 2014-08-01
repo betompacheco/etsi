@@ -1,5 +1,6 @@
 package br.gov.frameworkdemoiselle.policy.engine.asn1;
 
+import br.gov.frameworkdemoiselle.policy.engine.asn1.etsi.SignPolExtn;
 import br.gov.frameworkdemoiselle.policy.engine.asn1.etsi.SignaturePolicy;
 import br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.LPA;
 import br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.Time;
@@ -8,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collection;
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1Primitive;
 
@@ -38,8 +40,8 @@ public class Read {
 
     public static SignaturePolicy readSignaturePolicyFromFile(File file) {
         SignaturePolicy signaturePolicy = new SignaturePolicy();
-        ASN1Primitive derObject = Read.readDERFromFile(file);
-        signaturePolicy.parse(derObject);
+        ASN1Primitive primitive = Read.readDERFromFile(file);
+        signaturePolicy.parse(primitive);
         return signaturePolicy;
     }
 
@@ -67,6 +69,12 @@ public class Read {
         System.out.println("Emissor da Política............: " + signaturePolicy.getSignPolicyInfo().getPolicyIssuerName());
         System.out.println("Campo de aplicação da Política.: " + signaturePolicy.getSignPolicyInfo().getFieldOfApplication().getValue());
         System.out.println("Politica válida entre..........: " + signaturePolicy.getSignPolicyInfo().getSignatureValidationPolicy().getSigningPeriod());
+
+        Collection<SignPolExtn> c = signaturePolicy.getSignPolicyInfo().getSignPolExtensions().getExtensions();
+        for (SignPolExtn signPolExtn : c) {
+            System.out.println("Politica válida entre..........: " + signPolExtn.getExtnID());
+        }
+
     }
 
     public static void printLPAFromFile(File file) {
@@ -145,9 +153,9 @@ public class Read {
 //		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RV_v2_0.der",
 //		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RV_v2_1.der"};
 
-//        for (String file : signaturePolicies) {
-//            Read.printSignaturePolicyFromFile(new File(file));
-//        }
+        for (String file : signaturePolicies) {
+            Read.printSignaturePolicyFromFile(new File(file));
+        }
         Read.printLPAFromFile(new File("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/LPA.der"));
         Read.printLPAv2FromFile(new File("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/LPAv2.der"));
     }
