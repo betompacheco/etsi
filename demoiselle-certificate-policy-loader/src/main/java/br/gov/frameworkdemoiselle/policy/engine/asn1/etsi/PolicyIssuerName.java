@@ -11,6 +11,7 @@ import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.asn1.DERSet;
 import org.bouncycastle.asn1.DERTaggedObject;
 import org.bouncycastle.asn1.DERUTF8String;
+import org.bouncycastle.asn1.DLSequence;
 
 public class PolicyIssuerName extends ASN1Object {
 
@@ -19,11 +20,11 @@ public class PolicyIssuerName extends ASN1Object {
 
     @Override
     public void parse(ASN1Primitive primitive) {
-        if (primitive instanceof DERSequence) {
-            DERSequence sequence = (DERSequence) primitive;
-            ASN1Encodable derEncodable = sequence.getObjectAt(0);
-            if (derEncodable instanceof DERTaggedObject) {
-                DERTaggedObject derTaggedObject = (DERTaggedObject) derEncodable;
+        if (primitive instanceof DLSequence) {
+            DLSequence sequence = (DLSequence) primitive;
+            ASN1Encodable asn1Encodable = sequence.getObjectAt(0);
+            if (asn1Encodable instanceof DERTaggedObject) {
+                DERTaggedObject derTaggedObject = (DERTaggedObject) asn1Encodable;
                 ASN1Primitive object = derTaggedObject.getObject();
                 if (object instanceof DEROctetString) {
                     OctetString octetString = new OctetString();
