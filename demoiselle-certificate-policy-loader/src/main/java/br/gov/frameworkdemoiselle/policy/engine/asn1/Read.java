@@ -145,9 +145,9 @@ public class Read {
 //		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RV_v2_0.der",
 //		"/home/09275643784/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RV_v2_1.der"};
 
-        for (String file : signaturePolicies) {
-            Read.printSignaturePolicyFromFile(new File(file));
-        }
+//        for (String file : signaturePolicies) {
+//            Read.printSignaturePolicyFromFile(new File(file));
+//        }
         Read.printLPAFromFile(new File("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/LPA.der"));
         Read.printLPAv2FromFile(new File("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/LPAv2.der"));
     }
