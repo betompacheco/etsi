@@ -56,7 +56,7 @@ public class PolicyFactory {
     public SignaturePolicy loadPolicy(Policy policy) {
         SignaturePolicy signaturePolicy = new SignaturePolicy();
         InputStream is = this.getClass().getResourceAsStream(policy.getUrl());
-        ASN1Primitive primitive = Read.readDERFromFile(is);
+        ASN1Primitive primitive = Read.readANS1FromStream(is);
         signaturePolicy.parse(primitive);
         return signaturePolicy;
     }

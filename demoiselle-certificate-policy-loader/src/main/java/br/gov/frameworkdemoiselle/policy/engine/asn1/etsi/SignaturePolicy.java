@@ -49,7 +49,6 @@ public class SignaturePolicy {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("===================================================").append("\n");
         builder.append("Algoritmo Hash da Política.......: ").append(this.getSignPolicyHashAlg().getAlgorithm().getValue()).append("\n");
         builder.append("Hash da Política.................: ").append(this.getSignPolicyHash().getValue()).append("\n");
         builder.append("OID da Política..................: ").append(this.getSignPolicyInfo().getSignPolicyIdentifier().getValue()).append("\n");
@@ -57,6 +56,11 @@ public class SignaturePolicy {
         builder.append("Emissor da Política..............: ").append(this.getSignPolicyInfo().getPolicyIssuerName()).append("\n");
         builder.append("Campo de aplicação da Política...: ").append(this.getSignPolicyInfo().getFieldOfApplication().getValue()).append("\n");
         builder.append("Politica válida entre............: ").append(this.getSignPolicyInfo().getSignatureValidationPolicy().getSigningPeriod()).append("\n");
+
+        for (AlgAndLength oi : this.getSignPolicyInfo().getSignatureValidationPolicy().getCommonRules().getAlgorithmConstraintSet().getSignerAlgorithmConstraints().getAlgAndLengths()) {
+            builder.append("Algoritmo de assinatura..........: ").append(oi.getAlgID()).append("\n");
+            builder.append("Tamanho mínimo da chave..........: ").append(oi.getMinKeyLength()).append("\n");
+        }
 
         for (ObjectIdentifier oi : this.getSignPolicyInfo().getSignatureValidationPolicy().getCommonRules().getSignerAndVeriferRules().getSignerRules().getMandatedSignedAttr().getObjectIdentifiers()) {
             builder.append("OID de atributos assinados.......: ").append(oi.getValue()).append("\n");

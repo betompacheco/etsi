@@ -13,12 +13,12 @@ import org.bouncycastle.asn1.ASN1Primitive;
 
 public class Read {
 
-    public static ASN1Primitive readDERFromFile(InputStream is) {
+    public static ASN1Primitive readANS1FromStream(InputStream is) {
 
         ASN1InputStream asn1is = new ASN1InputStream(is);
-        ASN1Primitive derObject = null;
+        ASN1Primitive primitive = null;
         try {
-            derObject = asn1is.readObject();
+            primitive = asn1is.readObject();
         } catch (IOException error) {
             throw new RuntimeException(error);
         } finally {
@@ -28,26 +28,26 @@ public class Read {
                 throw new RuntimeException(error);
             }
         }
-        return derObject;
+        return primitive;
     }
 
     public static SignaturePolicy readSignaturePolicyFromFile(InputStream is) {
         SignaturePolicy signaturePolicy = new SignaturePolicy();
-        ASN1Primitive primitive = Read.readDERFromFile(is);
+        ASN1Primitive primitive = Read.readANS1FromStream(is);
         signaturePolicy.parse(primitive);
         return signaturePolicy;
     }
 
     public static LPA readLPAFromFile(InputStream is) {
         LPA listaPoliticaAssinatura = new LPA();
-        ASN1Primitive derObject = Read.readDERFromFile(is);
+        ASN1Primitive derObject = Read.readANS1FromStream(is);
         listaPoliticaAssinatura.parse(derObject);
         return listaPoliticaAssinatura;
     }
 
     public static br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.v2.LPA readLPAv2FromFile(InputStream is) {
         br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.v2.LPA listaPoliticaAssinaturaV2 = new br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.v2.LPA();
-        ASN1Primitive derObject = Read.readDERFromFile(is);
+        ASN1Primitive derObject = Read.readANS1FromStream(is);
         listaPoliticaAssinaturaV2.parse(derObject);
         return listaPoliticaAssinaturaV2;
     }

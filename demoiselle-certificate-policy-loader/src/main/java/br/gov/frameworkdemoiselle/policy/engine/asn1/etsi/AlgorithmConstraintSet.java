@@ -5,6 +5,13 @@ import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.DERTaggedObject;
 
+/**
+ * The algorithmConstrains fields, if present, identifies the signing algorithms
+ * (hash, public key cryptography, combined hash and public key cryptography)
+ * that may be used for specific purposes and any minimum length. If this field
+ * is not present then the policy applies no constraints.
+ *
+ */
 public class AlgorithmConstraintSet extends ASN1Object {
 
     public enum TAG {

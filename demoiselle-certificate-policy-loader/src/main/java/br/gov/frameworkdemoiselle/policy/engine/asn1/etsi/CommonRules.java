@@ -5,6 +5,14 @@ import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.DERTaggedObject;
 
+/**
+ * The CommonRules define rules that are common to all commitment types. These
+ * rules are defined in terms of trust conditions for certificates, timestamps
+ * and attributes, along with any constraints on attributes that may be included
+ * in the electronic signature.
+ *
+ * @author 07721825741
+ */
 public class CommonRules extends ASN1Object {
 
     enum TAG {
