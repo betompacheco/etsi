@@ -26,7 +26,7 @@ public class SignPolExtensions extends ASN1Object {
             SignPolExtn signPolExtn = new SignPolExtn();
             signPolExtn.parse(derSequence.getObjectAt(i).toASN1Primitive());
             if (this.extensions == null) {
-                this.extensions = new ArrayList<SignPolExtn>();
+                this.extensions = new ArrayList<>();
             }
             this.extensions.add(signPolExtn);
         }

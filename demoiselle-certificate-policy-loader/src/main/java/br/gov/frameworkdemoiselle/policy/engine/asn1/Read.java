@@ -61,14 +61,7 @@ public class Read {
 
     public static void printSignaturePolicyFromFile(File file) {
         SignaturePolicy signaturePolicy = Read.readSignaturePolicyFromFile(file);
-        System.out.println("===================================================");
-        System.out.println("Algoritmo Hash da Política.....: " + signaturePolicy.getSignPolicyHashAlg().getAlgorithm().getValue());
-        System.out.println("Hash da Política...............: " + signaturePolicy.getSignPolicyHash().getValue());
-        System.out.println("OID da Política................: " + signaturePolicy.getSignPolicyInfo().getSignPolicyIdentifier().getValue());
-        System.out.println("Data Lancamento da Política....: " + signaturePolicy.getSignPolicyInfo().getDateOfIssue().getDate());
-        System.out.println("Emissor da Política............: " + signaturePolicy.getSignPolicyInfo().getPolicyIssuerName());
-        System.out.println("Campo de aplicação da Política.: " + signaturePolicy.getSignPolicyInfo().getFieldOfApplication().getValue());
-        System.out.println("Politica válida entre..........: " + signaturePolicy.getSignPolicyInfo().getSignatureValidationPolicy().getSigningPeriod());
+        System.out.println(signaturePolicy.toString());
     }
 
     public static void printLPAFromFile(File file) {
@@ -124,14 +117,10 @@ public class Read {
     public static void main(String[] args) {
 
         PolicyFactory pf = PolicyFactory.getInstance();
-        System.out.println(pf.loadPolicy(Policy.AD_RB_CADES_1_1));
+        System.out.println(pf.loadPolicy(Policy.AD_RT_CADES_2_1));
 
-        String[] signaturePolicies = new String[]{"/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RB_v2_1.der"};
-
-        for (String file : signaturePolicies) {
-            Read.printSignaturePolicyFromFile(new File(file));
-        }
         Read.printLPAFromFile(new File("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/LPA.der"));
+
         Read.printLPAv2FromFile(new File("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/LPAv2.der"));
     }
 

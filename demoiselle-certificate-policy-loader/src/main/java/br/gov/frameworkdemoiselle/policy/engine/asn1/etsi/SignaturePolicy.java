@@ -49,14 +49,22 @@ public class SignaturePolicy {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("===================================================");
-        builder.append("Algoritmo Hash da Política.....: ").append(this.getSignPolicyHashAlg().getAlgorithm().getValue());
-        builder.append("Hash da Política...............: ").append(this.getSignPolicyHash().getValue());
-        builder.append("OID da Política................: ").append(this.getSignPolicyInfo().getSignPolicyIdentifier().getValue());
-        builder.append("Data Lancamento da Política....: ").append(this.getSignPolicyInfo().getDateOfIssue().getDate());
-        builder.append("Emissor da Política............: ").append(this.getSignPolicyInfo().getPolicyIssuerName());
-        builder.append("Campo de aplicação da Política.: ").append(this.getSignPolicyInfo().getFieldOfApplication().getValue());
-        builder.append("Politica válida entre..........: ").append(this.getSignPolicyInfo().getSignatureValidationPolicy().getSigningPeriod());
+        builder.append("===================================================").append("\n");
+        builder.append("Algoritmo Hash da Política.......: ").append(this.getSignPolicyHashAlg().getAlgorithm().getValue()).append("\n");
+        builder.append("Hash da Política.................: ").append(this.getSignPolicyHash().getValue()).append("\n");
+        builder.append("OID da Política..................: ").append(this.getSignPolicyInfo().getSignPolicyIdentifier().getValue()).append("\n");
+        builder.append("Data Lancamento da Política......: ").append(this.getSignPolicyInfo().getDateOfIssue().getDate()).append("\n");
+        builder.append("Emissor da Política..............: ").append(this.getSignPolicyInfo().getPolicyIssuerName()).append("\n");
+        builder.append("Campo de aplicação da Política...: ").append(this.getSignPolicyInfo().getFieldOfApplication().getValue()).append("\n");
+        builder.append("Politica válida entre............: ").append(this.getSignPolicyInfo().getSignatureValidationPolicy().getSigningPeriod()).append("\n");
+
+        for (ObjectIdentifier oi : this.getSignPolicyInfo().getSignatureValidationPolicy().getCommonRules().getSignerAndVeriferRules().getSignerRules().getMandatedSignedAttr().getObjectIdentifiers()) {
+            builder.append("OID de atributos assinados.......: ").append(oi.getValue()).append("\n");
+        }
+
+        for (ObjectIdentifier oi : this.getSignPolicyInfo().getSignatureValidationPolicy().getCommonRules().getSignerAndVeriferRules().getSignerRules().getMandatedUnsignedAttr().getObjectIdentifiers()) {
+            builder.append("OID de atributos nao assinados...: ").append(oi.getValue()).append("\n");
+        }
 
         return builder.toString();
     }
