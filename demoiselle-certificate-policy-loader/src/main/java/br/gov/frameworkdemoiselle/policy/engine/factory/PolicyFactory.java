@@ -38,7 +38,7 @@ package br.gov.frameworkdemoiselle.policy.engine.factory;
 
 import br.gov.frameworkdemoiselle.policy.engine.asn1.Read;
 import br.gov.frameworkdemoiselle.policy.engine.asn1.etsi.SignaturePolicy;
-import java.io.File;
+import java.io.InputStream;
 import org.bouncycastle.asn1.ASN1Primitive;
 
 /**
@@ -55,7 +55,8 @@ public class PolicyFactory {
 
     public SignaturePolicy loadPolicy(Policy policy) {
         SignaturePolicy signaturePolicy = new SignaturePolicy();
-        ASN1Primitive primitive = Read.readDERFromFile(new File(policy.getUrl()));
+        InputStream is = this.getClass().getResourceAsStream(policy.getUrl());
+        ASN1Primitive primitive = Read.readDERFromFile(is);
         signaturePolicy.parse(primitive);
         return signaturePolicy;
     }
@@ -66,28 +67,28 @@ public class PolicyFactory {
 
     public enum Policy {
 
-        AD_RB_CADES_1_0("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RB.der"),
-        AD_RB_CADES_1_1("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RB_v1_1.der"),
-        AD_RB_CADES_2_0("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RB_v2_0.der"),
-        AD_RB_CADES_2_1("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RB_v2_1.der"),
-        AD_RT_CADES_1_0("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RT.der"),
-        AD_RT_CADES_1_1("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RT_v1_1.der"),
-        AD_RT_CADES_2_0("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RT_v2_0.der"),
-        AD_RT_CADES_2_1("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RT_v2_1.der"),
-        AD_RV_CADES_1_0("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RV.der"),
-        AD_RV_CADES_1_1("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RV_v1_1.der"),
-        AD_RV_CADES_2_0("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RV_v2_0.der"),
-        AD_RV_CADES_2_1("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RV_v2_1.der"),
-        AD_RC_CADES_1_0("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RC.der"),
-        AD_RC_CADES_1_1("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RC_v1_1.der"),
-        AD_RC_CADES_2_0("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RC_v2_0.der"),
-        AD_RC_CADES_2_1("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RC_v2_1.der"),
-        AD_RA_CADES_1_0("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RA.der"),
-        AD_RA_CADES_1_1("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RA_v1_1.der"),
-        AD_RA_CADES_1_2("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RA_v1_2.der"),
-        AD_RA_CADES_2_0("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RA_v2_0.der"),
-        AD_RA_CADES_2_1("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RA_v2_1.der"),
-        AD_RA_CADES_2_2("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/PA_AD_RA_v2_2.der");
+        AD_RB_CADES_1_0("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RB.der"),
+        AD_RB_CADES_1_1("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RB_v1_1.der"),
+        AD_RB_CADES_2_0("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RB_v2_0.der"),
+        AD_RB_CADES_2_1("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RB_v2_1.der"),
+        AD_RT_CADES_1_0("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RT.der"),
+        AD_RT_CADES_1_1("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RT_v1_1.der"),
+        AD_RT_CADES_2_0("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RT_v2_0.der"),
+        AD_RT_CADES_2_1("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RT_v2_1.der"),
+        AD_RV_CADES_1_0("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RV.der"),
+        AD_RV_CADES_1_1("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RV_v1_1.der"),
+        AD_RV_CADES_2_0("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RV_v2_0.der"),
+        AD_RV_CADES_2_1("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RV_v2_1.der"),
+        AD_RC_CADES_1_0("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RC.der"),
+        AD_RC_CADES_1_1("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RC_v1_1.der"),
+        AD_RC_CADES_2_0("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RC_v2_0.der"),
+        AD_RC_CADES_2_1("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RC_v2_1.der"),
+        AD_RA_CADES_1_0("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RA.der"),
+        AD_RA_CADES_1_1("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RA_v1_1.der"),
+        AD_RA_CADES_1_2("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RA_v1_2.der"),
+        AD_RA_CADES_2_0("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RA_v2_0.der"),
+        AD_RA_CADES_2_1("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RA_v2_1.der"),
+        AD_RA_CADES_2_2("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RA_v2_2.der");
 
         private String url;
 
@@ -102,8 +103,8 @@ public class PolicyFactory {
 
     public enum LPA {
 
-        lpav1("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/LPA.der"),
-        lpav2("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/LPAv2.der");
+        lpav1("br/gov/frameworkdemoiselle/policy/engine/artifacts/LPA.der"),
+        lpav2("br/gov/frameworkdemoiselle/policy/engine/artifacts/LPAv2.der");
 
         private String url;
 

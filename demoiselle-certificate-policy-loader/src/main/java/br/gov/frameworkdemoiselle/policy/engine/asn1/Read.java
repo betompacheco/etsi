@@ -6,23 +6,16 @@ import br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.Time;
 import br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.v2.PolicyInfo;
 import br.gov.frameworkdemoiselle.policy.engine.factory.PolicyFactory;
 import br.gov.frameworkdemoiselle.policy.engine.factory.PolicyFactory.Policy;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1Primitive;
 
 public class Read {
 
-    public static ASN1Primitive readDERFromFile(File file) {
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(file);
-        } catch (FileNotFoundException error) {
-            throw new RuntimeException(error);
-        }
-        ASN1InputStream asn1is = new ASN1InputStream(fis);
+    public static ASN1Primitive readDERFromFile(InputStream is) {
+
+        ASN1InputStream asn1is = new ASN1InputStream(is);
         ASN1Primitive derObject = null;
         try {
             derObject = asn1is.readObject();
@@ -38,34 +31,34 @@ public class Read {
         return derObject;
     }
 
-    public static SignaturePolicy readSignaturePolicyFromFile(File file) {
+    public static SignaturePolicy readSignaturePolicyFromFile(InputStream is) {
         SignaturePolicy signaturePolicy = new SignaturePolicy();
-        ASN1Primitive primitive = Read.readDERFromFile(file);
+        ASN1Primitive primitive = Read.readDERFromFile(is);
         signaturePolicy.parse(primitive);
         return signaturePolicy;
     }
 
-    public static LPA readLPAFromFile(File file) {
+    public static LPA readLPAFromFile(InputStream is) {
         LPA listaPoliticaAssinatura = new LPA();
-        ASN1Primitive derObject = Read.readDERFromFile(file);
+        ASN1Primitive derObject = Read.readDERFromFile(is);
         listaPoliticaAssinatura.parse(derObject);
         return listaPoliticaAssinatura;
     }
 
-    public static br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.v2.LPA readLPAv2FromFile(File file) {
+    public static br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.v2.LPA readLPAv2FromFile(InputStream is) {
         br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.v2.LPA listaPoliticaAssinaturaV2 = new br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.v2.LPA();
-        ASN1Primitive derObject = Read.readDERFromFile(file);
+        ASN1Primitive derObject = Read.readDERFromFile(is);
         listaPoliticaAssinaturaV2.parse(derObject);
         return listaPoliticaAssinaturaV2;
     }
 
-    public static void printSignaturePolicyFromFile(File file) {
-        SignaturePolicy signaturePolicy = Read.readSignaturePolicyFromFile(file);
+    public static void printSignaturePolicyFromFile(InputStream is) {
+        SignaturePolicy signaturePolicy = Read.readSignaturePolicyFromFile(is);
         System.out.println(signaturePolicy.toString());
     }
 
-    public static void printLPAFromFile(File file) {
-        LPA listaPoliticaAssinatura = Read.readLPAFromFile(file);
+    public static void printLPAFromFile(InputStream is) {
+        LPA listaPoliticaAssinatura = Read.readLPAFromFile(is);
         System.out.println("===================================================");
         System.out.println("Próxima Atualização.: " + listaPoliticaAssinatura.getNextUpdate().getTime());
         System.out.println("Qtds Políticas......: " + listaPoliticaAssinatura.getPolicyInfos().size());
@@ -90,8 +83,8 @@ public class Read {
 
     }
 
-    public static void printLPAv2FromFile(File file) {
-        br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.v2.LPA listaPoliticaAssinatura = Read.readLPAv2FromFile(file);
+    public static void printLPAv2FromFile(InputStream is) {
+        br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.v2.LPA listaPoliticaAssinatura = Read.readLPAv2FromFile(is);
         System.out.println("===================================================");
         System.out.println("Próxima Atualização.: " + listaPoliticaAssinatura.getNextUpdate().getDate());
         System.out.println("Qtds Políticas......: " + listaPoliticaAssinatura.getPolicyInfos().size());
@@ -119,9 +112,8 @@ public class Read {
         PolicyFactory pf = PolicyFactory.getInstance();
         System.out.println(pf.loadPolicy(Policy.AD_RT_CADES_2_1));
 
-        Read.printLPAFromFile(new File("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/LPA.der"));
-
-        Read.printLPAv2FromFile(new File("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/LPAv2.der"));
+//        Read.printLPAFromFile(new File("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/LPA.der"));
+//        Read.printLPAv2FromFile(new File("/home/07721825741/Documentos/ICP-Brasil/artefatos_assinatura/LPAv2.der"));
     }
 
 }
