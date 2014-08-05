@@ -15,26 +15,6 @@ import org.bouncycastle.asn1.DERTaggedObject;
  */
 public class CommonRules extends ASN1Object {
 
-    enum TAG {
-
-        signerAndVeriferRules(0), signingCertTrustCondition(1), timeStampTrustCondition(2),
-        attributeTrustCondition(3), algorithmConstraintSet(4), signPolExtensions(5);
-        int value;
-
-        private TAG(int value) {
-            this.value = value;
-        }
-
-        public static TAG getTag(int value) {
-            for (TAG tag : TAG.values()) {
-                if (tag.value == value) {
-                    return tag;
-                }
-            }
-            return null;
-        }
-    }
-
     private SignerAndVerifierRules signerAndVeriferRules;
     private SigningCertTrustCondition signingCertTrustCondition;
     private TimestampTrustCondition timeStampTrustCondition;
@@ -139,4 +119,28 @@ public class CommonRules extends ASN1Object {
         }
     }
 
+    enum TAG {
+
+        signerAndVeriferRules(0),
+        signingCertTrustCondition(1),
+        timeStampTrustCondition(2),
+        attributeTrustCondition(3),
+        algorithmConstraintSet(4),
+        signPolExtensions(5);
+
+        private final int value;
+
+        private TAG(int value) {
+            this.value = value;
+        }
+
+        public static TAG getTag(int value) {
+            for (TAG tag : TAG.values()) {
+                if (tag.value == value) {
+                    return tag;
+                }
+            }
+            return null;
+        }
+    }
 }

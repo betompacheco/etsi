@@ -61,4 +61,31 @@ public class LPA extends ASN1Object {
         this.nextUpdate = new GeneralizedTime();
         this.nextUpdate.parse(sequence.getObjectAt(indice + 1).toASN1Primitive());
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("===================================================").append("\n");
+        builder.append("Próxima Atualização.: ").append(this.getNextUpdate().getDate()).append("\n");
+        builder.append("Qtds Políticas......: ").append(this.getPolicyInfos().size()).append("\n");
+        builder.append("===================================================");
+        for (PolicyInfo policyInfo : this.getPolicyInfos()) {
+            builder.append("\tPeríodo de Assinatura: ").append(policyInfo.getSigningPeriod()).append("\n");
+            builder.append("\tOID da Política......: ").append(policyInfo.getPolicyOID().getValue()).append("\n");
+            builder.append("\tURI da Política......: ").append(policyInfo.getPolicyURI()).append("\n");
+            builder.append("\tAlgoritmo Hash.......: ").append(policyInfo.getPolicyDigest().getHashAlgorithm().getAlgorithm().getId()).append("\n");
+            builder.append("\tHash.................: ").append(policyInfo.getPolicyDigest().getHashValue().toString()).append("\n");
+            builder.append("\tStatus...............: ");
+            GeneralizedTime revocationDate = policyInfo.getRevocationDate();
+            if (revocationDate != null) {
+                builder.append("Esta política está revogada.").append("\n");
+                builder.append("\tData de Revogação....: ").append(revocationDate != null ? revocationDate.getDate() : "não há data de revogação").append("\n");
+            } else {
+                builder.append("Esta política ainda está em vigor.").append("\n");
+            }
+            builder.append("\t===================================================").append("\n");
+        }
+        return builder.toString();
+    }
+
 }

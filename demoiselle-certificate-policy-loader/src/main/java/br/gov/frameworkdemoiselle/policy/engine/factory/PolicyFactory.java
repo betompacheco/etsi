@@ -36,33 +36,64 @@
  */
 package br.gov.frameworkdemoiselle.policy.engine.factory;
 
-import br.gov.frameworkdemoiselle.policy.engine.asn1.Read;
 import br.gov.frameworkdemoiselle.policy.engine.asn1.etsi.SignaturePolicy;
+import br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.LPA;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Logger;
+import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1Primitive;
 
-/**
- *
- * @author 07721825741
- */
 public class PolicyFactory {
+
+    private static final Logger logger = Logger.getLogger(PolicyFactory.class.getName());
 
     public static final PolicyFactory instance = new PolicyFactory();
 
-    public static final PolicyFactory getInstance() {
+    public static PolicyFactory getInstance() {
         return PolicyFactory.instance;
     }
 
     public SignaturePolicy loadPolicy(Policy policy) {
         SignaturePolicy signaturePolicy = new SignaturePolicy();
         InputStream is = this.getClass().getResourceAsStream(policy.getUrl());
-        ASN1Primitive primitive = Read.readANS1FromStream(is);
+        ASN1Primitive primitive = this.readANS1FromStream(is);
         signaturePolicy.parse(primitive);
         return signaturePolicy;
     }
 
-    public void loadLPA(LPA lpa) {
+    public LPA loadLPA() {
+        br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.LPA listaPoliticaAssinatura = new br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.LPA();
+        InputStream is = this.getClass().getResourceAsStream(ListOfSubscriptionPolicies.version1.getUrl());
+        ASN1Primitive primitive = this.readANS1FromStream(is);
+        listaPoliticaAssinatura.parse(primitive);
+        return listaPoliticaAssinatura;
+    }
 
+    public br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.v2.LPA loadLPAv2() {
+        br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.v2.LPA listaPoliticaAssinatura = new br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.v2.LPA();
+        InputStream is = this.getClass().getResourceAsStream(ListOfSubscriptionPolicies.version2.getUrl());
+        ASN1Primitive primitive = this.readANS1FromStream(is);
+        listaPoliticaAssinatura.parse(primitive);
+        return listaPoliticaAssinatura;
+    }
+
+    private ASN1Primitive readANS1FromStream(InputStream is) {
+
+        ASN1InputStream asn1is = new ASN1InputStream(is);
+        ASN1Primitive primitive = null;
+        try {
+            primitive = asn1is.readObject();
+        } catch (IOException error) {
+            throw new RuntimeException(error);
+        } finally {
+            try {
+                asn1is.close();
+            } catch (IOException error) {
+                throw new RuntimeException(error);
+            }
+        }
+        return primitive;
     }
 
     public enum Policy {
@@ -101,14 +132,14 @@ public class PolicyFactory {
         }
     }
 
-    public enum LPA {
+    public enum ListOfSubscriptionPolicies {
 
-        lpav1("br/gov/frameworkdemoiselle/policy/engine/artifacts/LPA.der"),
-        lpav2("br/gov/frameworkdemoiselle/policy/engine/artifacts/LPAv2.der");
+        version1("/br/gov/frameworkdemoiselle/policy/engine/artifacts/LPA.der"),
+        version2("/br/gov/frameworkdemoiselle/policy/engine/artifacts/LPAv2.der");
 
         private String url;
 
-        private LPA(String url) {
+        private ListOfSubscriptionPolicies(String url) {
             this.url = url;
         }
 
