@@ -62,11 +62,18 @@ public class SignaturePolicy {
             builder.append("Tamanho mínimo da chave..........: ").append(oi.getMinKeyLength()).append("\n");
         }
 
+        builder.append("==============================================================").append("\n");
         for (ObjectIdentifier oi : this.getSignPolicyInfo().getSignatureValidationPolicy().getCommonRules().getSignerAndVeriferRules().getSignerRules().getMandatedSignedAttr().getObjectIdentifiers()) {
             builder.append("OID de atributos assinados.......: ").append(oi.getValue()).append("\n");
         }
 
+        builder.append("==============================================================").append("\n");
         for (ObjectIdentifier oi : this.getSignPolicyInfo().getSignatureValidationPolicy().getCommonRules().getSignerAndVeriferRules().getSignerRules().getMandatedUnsignedAttr().getObjectIdentifiers()) {
+            builder.append("OID de atributos nao assinados...: ").append(oi.getValue()).append("\n");
+        }
+
+        builder.append("==============================================================").append("\n");
+        for (ObjectIdentifier oi : this.getSignPolicyInfo().getSignatureValidationPolicy().getCommonRules().getSignerAndVeriferRules().getVerifierRules().getMandatedUnsignedAttr().getObjectIdentifiers()) {
             builder.append("OID de atributos nao assinados...: ").append(oi.getValue()).append("\n");
         }
 

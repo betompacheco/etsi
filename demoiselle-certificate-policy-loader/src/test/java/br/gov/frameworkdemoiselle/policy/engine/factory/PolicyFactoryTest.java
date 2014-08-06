@@ -74,7 +74,7 @@ public class PolicyFactoryTest {
     @Test
     public void testLoadPolicy() {
         PolicyFactory factory = PolicyFactory.getInstance();
-        logger.log(Level.INFO, factory.loadPolicy(PolicyFactory.Policy.AD_RT_CADES_2_1).toString());
+        logger.log(Level.INFO, factory.loadPolicy(PolicyFactory.Policy.AD_RA_CADES_2_2).toString());
     }
 
     /**
