@@ -1,39 +1,20 @@
 package br.gov.frameworkdemoiselle.policy.engine.asn1.etsi;
 
 import br.gov.frameworkdemoiselle.policy.engine.asn1.ASN1Object;
+import org.bouncycastle.asn1.ASN1Boolean;
 import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.ASN1Sequence;
-import org.bouncycastle.asn1.DERBoolean;
 import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.asn1.DERTaggedObject;
 
 public class SignerRules extends ASN1Object {
-
-    enum TAG {
-
-        mandatedCertificateRef(0), mandatedCertificateInfo(1), signPolExtensions(2);
-        int value;
-
-        private TAG(int value) {
-            this.value = value;
-        }
-
-        public static TAG getTag(int value) {
-            for (TAG tag : TAG.values()) {
-                if (tag.value == value) {
-                    return tag;
-                }
-            }
-            return null;
-        }
-    }
-
     /*
      * True if signed data is external to CMS structure
      * False if signed data part of CMS structure
      * not present if either allowed
      */
+
     private Boolean externalSignedData = null;
 
     /* Mandated CMS signed attributes */
@@ -99,8 +80,8 @@ public class SignerRules extends ASN1Object {
     }
 
     @Override
-    public void parse(ASN1Primitive derObject) {
-        ASN1Sequence derSequence = ASN1Object.getDERSequence(derObject);
+    public void parse(ASN1Primitive primitive) {
+        ASN1Sequence derSequence = ASN1Object.getDERSequence(primitive);
 
         int total = derSequence.size();
         if (total > 0) {
@@ -130,8 +111,8 @@ public class SignerRules extends ASN1Object {
         int i = 0;
         ASN1Encodable object = derSequence.getObjectAt(i);
         if (!(object instanceof DERSequence)) {
-            if (object instanceof DERBoolean) {
-                this.externalSignedData = ((DERBoolean) object).isTrue();
+            if (object instanceof ASN1Boolean) {
+                this.externalSignedData = ((ASN1Boolean) object).isTrue();
             }
             i++;
         }
@@ -140,6 +121,27 @@ public class SignerRules extends ASN1Object {
         i++;
         this.mandatedUnsignedAttr = new CMSAttrs();
         this.mandatedUnsignedAttr.parse(derSequence.getObjectAt(i).toASN1Primitive());
+    }
+
+    enum TAG {
+
+        mandatedCertificateRef(0),
+        mandatedCertificateInfo(1),
+        signPolExtensions(2);
+        private int value;
+
+        private TAG(int value) {
+            this.value = value;
+        }
+
+        public static TAG getTag(int value) {
+            for (TAG tag : TAG.values()) {
+                if (tag.value == value) {
+                    return tag;
+                }
+            }
+            return null;
+        }
     }
 
 }

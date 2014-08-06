@@ -1,9 +1,8 @@
 package br.gov.frameworkdemoiselle.policy.engine.asn1.etsi;
 
-import org.bouncycastle.asn1.ASN1Primitive;
-
 import br.gov.frameworkdemoiselle.policy.engine.asn1.ASN1Object;
 import org.bouncycastle.asn1.ASN1Enumerated;
+import org.bouncycastle.asn1.ASN1Primitive;
 
 public enum EnuRevReq {
 

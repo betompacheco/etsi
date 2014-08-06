@@ -26,7 +26,7 @@ public class AcceptablePolicySet extends ASN1Object {
             CertPolicyId certPolicyId = new CertPolicyId();
             certPolicyId.parse(derSequence.getObjectAt(i).toASN1Primitive());
             if (this.certPolicyIds == null) {
-                this.certPolicyIds = new ArrayList<CertPolicyId>();
+                this.certPolicyIds = new ArrayList<>();
             }
             this.certPolicyIds.add(certPolicyId);
         }

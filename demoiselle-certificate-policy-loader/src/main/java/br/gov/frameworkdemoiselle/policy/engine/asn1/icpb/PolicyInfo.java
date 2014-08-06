@@ -1,12 +1,11 @@
 package br.gov.frameworkdemoiselle.policy.engine.asn1.icpb;
 
-import org.bouncycastle.asn1.ASN1Sequence;
-import org.bouncycastle.asn1.ASN1Primitive;
-import org.bouncycastle.asn1.DERTaggedObject;
-import org.bouncycastle.asn1.x500.DirectoryString;
-
 import br.gov.frameworkdemoiselle.policy.engine.asn1.ASN1Object;
 import br.gov.frameworkdemoiselle.policy.engine.asn1.etsi.SigningPeriod;
+import org.bouncycastle.asn1.ASN1Primitive;
+import org.bouncycastle.asn1.ASN1Sequence;
+import org.bouncycastle.asn1.DERTaggedObject;
+import org.bouncycastle.asn1.x500.DirectoryString;
 
 public class PolicyInfo extends ASN1Object {
 

@@ -56,6 +56,9 @@ public class SignaturePolicy {
         builder.append("Emissor da Política..............: ").append(this.getSignPolicyInfo().getPolicyIssuerName()).append("\n");
         builder.append("Campo de aplicação da Política...: ").append(this.getSignPolicyInfo().getFieldOfApplication().getValue()).append("\n");
         builder.append("Politica válida entre............: ").append(this.getSignPolicyInfo().getSignatureValidationPolicy().getSigningPeriod()).append("\n");
+        builder.append("External Signed Data.............: ").append(this.getSignPolicyInfo().getSignatureValidationPolicy().getCommonRules().getSignerAndVeriferRules().getSignerRules().getExternalSignedData()).append("\n");
+        builder.append("MandatedCertificateRef...........: ").append(this.getSignPolicyInfo().getSignatureValidationPolicy().getCommonRules().getSignerAndVeriferRules().getSignerRules().getMandatedCertificateRef()).append("\n");
+        builder.append("MandatedCertificateInfo..........: ").append(this.getSignPolicyInfo().getSignatureValidationPolicy().getCommonRules().getSignerAndVeriferRules().getSignerRules().getMandatedCertificateInfo()).append("\n");
 
         for (AlgAndLength oi : this.getSignPolicyInfo().getSignatureValidationPolicy().getCommonRules().getAlgorithmConstraintSet().getSignerAlgorithmConstraints().getAlgAndLengths()) {
             builder.append("Algoritmo de assinatura..........: ").append(oi.getAlgID()).append("\n");

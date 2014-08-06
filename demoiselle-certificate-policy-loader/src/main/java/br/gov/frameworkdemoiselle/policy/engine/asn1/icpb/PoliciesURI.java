@@ -10,7 +10,9 @@ public class PoliciesURI extends ASN1Object {
 		int value;
 		private TAG(int value) { this.value = value; }
 		public static TAG getTag(int value) {
-			for (TAG tag : TAG.values()) if (tag.value == value) return tag; return null;
+			for (TAG tag : TAG.values()) if (tag.value == value) {
+                            return tag;
+                        } return null;
 		}
 	}
 	
