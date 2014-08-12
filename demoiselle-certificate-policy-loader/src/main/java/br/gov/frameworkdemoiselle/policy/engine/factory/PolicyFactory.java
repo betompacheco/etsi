@@ -54,7 +54,7 @@ public class PolicyFactory {
         return PolicyFactory.instance;
     }
 
-    public SignaturePolicy loadPolicy(Policy policy) {
+    public SignaturePolicy loadPolicy(Policies policy) {
         SignaturePolicy signaturePolicy = new SignaturePolicy();
         InputStream is = this.getClass().getResourceAsStream(policy.getUrl());
         ASN1Primitive primitive = this.readANS1FromStream(is);
@@ -96,7 +96,7 @@ public class PolicyFactory {
         return primitive;
     }
 
-    public enum Policy {
+    public enum Policies {
 
         AD_RB_CADES_1_0("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RB.der"),
         AD_RB_CADES_1_1("/br/gov/frameworkdemoiselle/policy/engine/artifacts/PA_AD_RB_v1_1.der"),
@@ -123,7 +123,7 @@ public class PolicyFactory {
 
         private String url;
 
-        private Policy(String url) {
+        private Policies(String url) {
             this.url = url;
         }
 
