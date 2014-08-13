@@ -53,11 +53,14 @@ public class LPA extends ASN1Object {
         builder.append("Qtds Políticas......: ").append(this.getPolicyInfos().size()).append("\n");
         builder.append("===================================================").append("\n");
         for (br.gov.frameworkdemoiselle.policy.engine.asn1.icpb.PolicyInfo policyInfo : this.getPolicyInfos()) {
-            builder.append("\tPolítica.............: ").append(policyInfo.getPolicyName()).append("\n");
-            builder.append("\tURI..................: ").append(policyInfo.getPoliciesURI()).append("\n");
-            builder.append("\tAplicação............: ").append(policyInfo.getFieldOfApplication()).append("\n");
-            builder.append("\tPeríodo de Assinatura: ").append(policyInfo.getSigningPeriod()).append("\n");
-            builder.append("\tStatus...............: ");
+            builder.append("\tPolítica................: ").append(policyInfo.getPolicyName()).append("\n");
+            builder.append("\tTexto da Politica.......: ").append(policyInfo.getPoliciesURI().getTextualPolicyURI()).append("\n");
+            builder.append("\tTexto da Politica (hash): ").append(policyInfo.getPoliciesDigest().getTextualPolicyDigest().getHashAlgorithm().getAlgorithm()).append("=").append(policyInfo.getPoliciesDigest().getTextualPolicyDigest().getHashValue().toString()).append("\n");
+            builder.append("\tPolitica ANS1...........: ").append(policyInfo.getPoliciesURI().getAsn1PolicyURI()).append("\n");
+            builder.append("\tPolitica ANS1 (hash)....: ").append(policyInfo.getPoliciesDigest().getAsn1PolicyDigest().getHashAlgorithm().getAlgorithm()).append("=").append(policyInfo.getPoliciesDigest().getAsn1PolicyDigest().getHashValue().toString()).append("\n");
+            builder.append("\tAplicação...............: ").append(policyInfo.getFieldOfApplication()).append("\n");
+            builder.append("\tPeríodo de Assinatura...: ").append(policyInfo.getSigningPeriod()).append("\n");
+            builder.append("\tStatus..................: ");
             Time revocationDate = policyInfo.getRevocationDate();
             if (revocationDate != null) {
                 builder.append("Esta política está revogada.").append("\n");

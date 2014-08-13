@@ -2,9 +2,10 @@ package br.gov.frameworkdemoiselle.policy.engine.asn1.icpb;
 
 import br.gov.frameworkdemoiselle.policy.engine.asn1.ASN1Object;
 import br.gov.frameworkdemoiselle.policy.engine.asn1.etsi.SigningPeriod;
+import org.bouncycastle.asn1.ASN1GeneralizedTime;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.ASN1Sequence;
-import org.bouncycastle.asn1.DERTaggedObject;
+import org.bouncycastle.asn1.ASN1UTCTime;
 import org.bouncycastle.asn1.x500.DirectoryString;
 
 public class PolicyInfo extends ASN1Object {
@@ -76,14 +77,18 @@ public class PolicyInfo extends ASN1Object {
         this.signingPeriod.parse(derSequence.getObjectAt(2).toASN1Primitive());
 
         int indice = 3;
-        ASN1Primitive revocationObject = derSequence.getObjectAt(indice).toASN1Primitive();
-        if (!(secondObject instanceof DERTaggedObject)) {
-            indice = 4;
-        }
-        if (indice == 3) {
+        ASN1Primitive unknow = derSequence.getObjectAt(indice).toASN1Primitive();
+        if (unknow instanceof ASN1GeneralizedTime || unknow instanceof ASN1UTCTime) {
             this.revocationDate = new Time();
-            this.revocationDate.parse(revocationObject);
+            this.revocationDate.parse(unknow);
+            indice++;
         }
+        this.policiesURI = new PoliciesURI();
+        this.policiesURI.parse(derSequence.getObjectAt(indice).toASN1Primitive());
+        indice++;
+        
+        this.policiesDigest = new PoliciesDigest();
+        this.policiesDigest.parse(derSequence.getObjectAt(indice).toASN1Primitive());
     }
 
 }

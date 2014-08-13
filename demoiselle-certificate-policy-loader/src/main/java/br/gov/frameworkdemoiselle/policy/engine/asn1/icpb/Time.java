@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.Date;
 import org.bouncycastle.asn1.ASN1GeneralizedTime;
 import org.bouncycastle.asn1.ASN1Primitive;
+import org.bouncycastle.asn1.ASN1UTCTime;
 import org.bouncycastle.asn1.DERUTCTime;
 
 public class Time extends ASN1Object {
@@ -21,8 +22,8 @@ public class Time extends ASN1Object {
 
     @Override
     public void parse(ASN1Primitive derObject) {
-        if (derObject instanceof ASN1GeneralizedTime) {
-            ASN1GeneralizedTime derGeneralizedTime = (ASN1GeneralizedTime) derObject;
+        if (derObject instanceof ASN1UTCTime) {
+            ASN1UTCTime derGeneralizedTime = (ASN1UTCTime) derObject;
             try {
                 this.setTime(derGeneralizedTime.getDate());
             } catch (ParseException ex) {

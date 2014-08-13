@@ -21,6 +21,8 @@ public abstract class ASN1Object {
         } else if (derObject instanceof DLSequence) {
 
             sequence = (DLSequence) derObject.toASN1Primitive();
+        } else {
+            System.out.println(derObject!=null?derObject.getClass():"NULO");
         }
         return sequence;
     }
